@@ -16,5 +16,18 @@ echo "REPO_NAME: $REPO_NAME"
 dir="/home/skpro19/.cache/huggingface/lerobot/$HF_USER/feb20-14_07"
 echo "Upload directory: $dir"
 
-# Upload to Hugging Face Hub
-huggingface-cli upload $HF_USER/$REPO_NAME "$dir" --repo-type dataset
+# Upload using LeRobot's proper dataset upload (handles versioning automatically)
+python -c "
+from lerobot.datasets.lerobot_dataset import LeRobotDataset
+import os
+
+# Load the local dataset
+dataset = LeRobotDataset(
+    repo_id='$HF_USER/$REPO_NAME',
+    root='$dir'
+)
+
+# Push to hub with proper versioning
+dataset.push_to_hub()
+print('✓ Dataset uploaded successfully with proper v3.0 versioning!')
+"
