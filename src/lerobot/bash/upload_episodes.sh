@@ -9,7 +9,7 @@ HF_USER="skpro19"
 echo "HF_USER: $HF_USER"
 
 # Set repository name for upload
-REPO_NAME="record-test"
+REPO_NAME="zandu-balm-Feb20-14-07"
 echo "REPO_NAME: $REPO_NAME"
 
 # Set the local directory containing recorded episodes

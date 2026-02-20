@@ -7,10 +7,10 @@ echo "HF_USER: $HF_USER"
 lerobot-train \
   --batch_size=2 \
   --num_workers=1 \
-  --dataset.repo_id=${HF_USER}/record-test \
+  --dataset.repo_id=${HF_USER}/zandu-balm-Feb20-14-07 \
   --policy.type=act \
-  --output_dir=outputs/train/act_record_test \
-  --job_name=act_record_test \
+  --output_dir=outputs/train/act_zandu-balm-Feb20-14-07 \
+  --job_name=act_zandu-balm-Feb20-14-07 \
   --policy.device=cuda \
-  --wandb.enable=false \
-  --policy.repo_id=${HF_USER}/my_policy
+  --wandb.enable=true \
+  --policy.repo_id=${HF_USER}/act_zandu-balm-Feb20-14-07
