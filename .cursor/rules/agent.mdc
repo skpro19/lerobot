@@ -10,3 +10,4 @@ List of instructions for the agent
 - Do not make any changes to the codebase unless explicitly instructed to do so.
 - `wandb` API keys are stored in `~/.netrc`.
 - For any request about training status, progress, steps, metrics, or run health, use the `wandb` mcp server by default (without waiting for explicit user instruction).
+- Proactively use the `context7` mcp server to query official docs.
