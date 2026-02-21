@@ -13,6 +13,8 @@ List of instructions for the agent
 - Proactively use the `context7` mcp server to query official docs.
 - When fixing errors, carefully analyze the error message and the stack trace to identify the root cause.
 - Always test the script after making changes.
+- If a command fails due to permission or network issues (e.g. sandbox blocking network or file access), re-run it outside the sandbox (e.g. with `required_permissions: ["network"]` or `["all"]` as appropriate).
+- When running scripts that access external resources (HuggingFace datasets, network connections) or require display/GUI capabilities (rerun visualization, OpenCV camera access), use `required_permissions: ["all"]` from the start to avoid permission failures.
 
 
 
