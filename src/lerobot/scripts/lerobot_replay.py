@@ -72,6 +72,7 @@ from lerobot.utils.utils import (
     init_logging,
     log_say,
 )
+from lerobot.utils.visualization_utils import init_rerun, log_rerun_data
 
 
 @dataclass
@@ -92,12 +93,30 @@ class ReplayConfig:
     dataset: DatasetReplayConfig
     # Use vocal synthesis to read events.
     play_sounds: bool = True
+    # Display all cameras and data on screen
+    display_data: bool = False
+    # Display data on a remote Rerun server
+    display_ip: str | None = None
+    # Port of the remote Rerun server
+    display_port: int | None = None
+    # Whether to display compressed images in Rerun
+    display_compressed_images: bool = False
 
 
 @parser.wrap()
 def replay(cfg: ReplayConfig):
     init_logging()
     logging.info(pformat(asdict(cfg)))
+
+    # Initialize rerun if display_data is enabled
+    if cfg.display_data:
+        init_rerun(session_name="replay", ip=cfg.display_ip, port=cfg.display_port)
+
+    display_compressed_images = (
+        True
+        if (cfg.display_data and cfg.display_ip is not None and cfg.display_port is not None)
+        else cfg.display_compressed_images
+    )
 
     robot_action_processor = make_default_robot_action_processor()
 
@@ -122,6 +141,14 @@ def replay(cfg: ReplayConfig):
         robot_obs = robot.get_observation()
 
         processed_action = robot_action_processor((action, robot_obs))
+
+        # Log data to rerun if visualization is enabled
+        if cfg.display_data:
+            log_rerun_data(
+                observation=robot_obs,
+                action=processed_action,
+                compress_images=display_compressed_images
+            )
 
         _ = robot.send_action(processed_action)
 
