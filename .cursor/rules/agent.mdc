@@ -1,4 +1,5 @@
 ---
+description: "Core agent instructions for the LeRobot workspace"
 alwaysApply: true
 ---
 
@@ -10,15 +11,7 @@ List of instructions for the agent
 - Do not make any changes to the codebase unless explicitly instructed to do so.
 - `wandb` API keys are stored in `~/.netrc`.
 - For any request about training status, progress, steps, metrics, or run health, use the `wandb` mcp server by default (without waiting for explicit user instruction).
-- Proactively use the `context7` mcp server to query official docs.
+- Proactively use the `context7` mcp server to query official docs; for the list of libraries see context7.mdc.
 - When fixing errors, carefully analyze the error message and the stack trace to identify the root cause.
 - Always test the script after making changes.
-- If a command fails due to permission or network issues (e.g. sandbox blocking network or file access), re-run it outside the sandbox (e.g. with `required_permissions: ["network"]` or `["all"]` as appropriate).
-- When running scripts that access external resources (HuggingFace datasets, network connections) or require display/GUI capabilities (rerun visualization, OpenCV camera access), use `required_permissions: ["all"]` from the start to avoid permission failures.
-
-
-
-## context7
-Some important libraries that you might want to use => 
-- /huggingface/lerobot
-- /wandb/wandb
+- **Permissions:** Use `required_permissions: ["all"]` from the start for scripts that need external resources (HuggingFace, network), display, or GUI (e.g. rerun, OpenCV cameras). If a command fails due to sandbox or permission issues, re-run with `required_permissions: ["network"]` or `["all"]` as appropriate.

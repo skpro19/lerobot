@@ -1,0 +1,9 @@
+---
+alwaysApply: false
+description: "This rule provides a NON EXHAUSTIVE list of context7 libraries that you might want to use"
+---
+
+## Context7 Libraries that you might want to use
+- /huggingface/lerobot
+- /wandb/wandb
+- /rerun-io/rerun
